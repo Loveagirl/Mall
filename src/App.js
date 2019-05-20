@@ -2,7 +2,8 @@ import React from 'react';
 import Layout from './Common/Layout'
 import Login from './Pages/Login'
 import Home from './Pages/Home'
-import { Provider} from 'redux'
+import { Provider} from 'react-redux'
+import store from './Store'
 import {BrowserRouter as Router,Route,Switch}  from 'react-router-dom'
 let LayoutRouter = (
   <Layout> 

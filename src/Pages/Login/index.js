@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
-
+import {connect} from 'react-redux'
+import {actionCreator} from './Store'
 class Login extends Component{
     render(){
         return(
@@ -13,12 +14,12 @@ class Login extends Component{
                 <form className="form-horizontal">
                     <div className="form-group">
                         <div className="col-sm-12">
-                        <input type="email" className="form-control"  placeholder="Username"/>
+                        <input type="email" defaultValue={this.props.username} className="form-control"  placeholder="Username" onChange={this.props.handleInputChange} name="username" />
                         </div>
                     </div>
                     <div className="form-group">
                         <div className="col-sm-12">
-                        <input type="password" className="form-control"  placeholder="Password" />
+                        <input type="password"  value={this.props.password} className="form-control"  placeholder="Password" onChange={this.props.handleInputChange} name="password" />
                         </div>
                     </div>
                     <div className="form-group">
@@ -33,5 +34,17 @@ class Login extends Component{
         )
     }
 }
+ const mapState = (state)=>({
+     username:state.getIn(['login','username']),
+     password:state.getIn(['login','password'])
+ })
+const mapDispatch=(dispatch)=>{
+    return{
+        handleInputChange(e){
+            console.log(e.target.name)
+           dispatch(actionCreator.change_name(e.target.value,e.target.name))
+        }
+    }
+}
 
-export default Login
+export default connect(mapState,mapDispatch)(Login)
